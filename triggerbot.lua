@@ -1,6 +1,6 @@
 local HoldClick = true
 local Hotkey = 't' -- Leave blank for always on
-local HotkeyToggle = true -- True if you want it to toggle on and off with a click
+local HotkeyToggle = true 
 
 local Players = game:GetService('Players')
 local RunService = game:GetService('RunService')
