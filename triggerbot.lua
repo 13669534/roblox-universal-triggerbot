@@ -22,7 +22,6 @@ local function startFiring()
     end
 end
 
-
 local function stopFiring()
     if HoldClick and CurrentlyPressed then
         CurrentlyPressed = false
@@ -30,23 +29,17 @@ local function stopFiring()
     end
 end
 
-
 local function isShootableTarget(target)
-    if target and target.Parent then
-        local humanoid = target.Parent:FindFirstChild('Humanoid')
-        if humanoid then
- 
-            return true
-        end
-        
-
-        if target:IsA('BasePart') then
-            return true
+    if target and target:IsA("BasePart") then
+        local model = target:FindFirstAncestorOfClass("Model")
+        if model and model:FindFirstChild("Humanoid") then
+            if target.Name == "HumanoidRootPart" or target.Name == "Head" then
+                return true
+            end
         end
     end
     return false
 end
-
 
 Mouse.KeyDown:Connect(function(key)
     if HotkeyToggle and key:lower() == Hotkey:lower() then
@@ -55,7 +48,6 @@ Mouse.KeyDown:Connect(function(key)
         Toggle = true
     end
 end)
-
 
 Mouse.KeyUp:Connect(function(key)
     if HotkeyToggle == false and key:lower() == Hotkey:lower() then
@@ -67,9 +59,9 @@ RunService.RenderStepped:Connect(function()
     if Toggle then
         local target = Mouse.Target
         if isShootableTarget(target) then
-            startFiring() 
+            startFiring()
         else
-            stopFiring()  
+            stopFiring()
         end
     else
         stopFiring()
